@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  app:
+    container_name: app
+    build: .
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - '8080:80'
+    expose:
+      - '8080'
+    depends_on:
+      - mysql
+      - rabbitmq
+    links:
+      - mysql
+      - rabbitmq
+
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: transactions_app
+      MYSQL_ROOT_PASSWORD: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - '3306:3306'
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.6-management-alpine
+    expose:
+      - '5672'
+    ports:
+      - '15672:15672'
+      - '5672:5672'
