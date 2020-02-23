@@ -19,6 +19,7 @@ npm run dev
 
 Now it's running on http://localhost:8080.
 
+You can use `user.teste@teste.com` and `password` to login with the test user.
 
 ## Built With
 
