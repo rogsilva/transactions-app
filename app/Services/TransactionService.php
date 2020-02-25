@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Transaction;
+use App\Wallet;
 use App\Jobs\ProcessTransaction;
 
 class TransactionService
@@ -26,8 +27,26 @@ class TransactionService
         });
     }
 
-    private function sendToQueue(int $transactionId)
+    public function transactionProcesing(Transaction $transaction): void
     {
-        ProcessPodcast::dispatch($podcast);
+        DB::transaction(function () use ($transaction) {
+
+            $fromWallet = Wallet::findOrFail($transaction->from_wallet_id);
+            $toWallet = Wallet::findOrFail($transaction->to_wallet_id);
+
+            if ($fromWallet->balance < $transaction->value) {
+                $transaction->transaction_status_id = 3; // Transfer fail
+                return $transaction->save();
+            }
+
+            $fromWallet->balance = $fromWallet->balance - $transaction->value;
+            $fromWallet->save();
+
+            $toWallet->balance = $toWallet->balance + $transaction->value;
+            $toWallet->save();
+
+            $transaction->transaction_status_id = 2; // Transfered
+            return $transaction->save();
+        });
     }
 }

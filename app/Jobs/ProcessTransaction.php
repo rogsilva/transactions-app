@@ -7,13 +7,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Queue;
 use App\Transaction;
+use App\Services\TransactionService;
 
 class ProcessTransaction implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $transaction;
+    protected $transaction;
     /**
      * Create a new job instance.
      *
@@ -21,7 +23,7 @@ class ProcessTransaction implements ShouldQueue
      */
     public function __construct(Transaction $transaction)
     {
-        $this->transaction = $transaction;
+        $this->transaction = $transaction->withoutRelations();
     }
 
     /**
@@ -29,8 +31,8 @@ class ProcessTransaction implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(TransactionService $service)
     {
-        //
+        $service->transactionProcesing($this->transaction);
     }
 }

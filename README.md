@@ -15,6 +15,9 @@ docker-compose exec app php artisan db:seed
 
 npm install
 npm run dev
+
+//Start consumer
+docker-compose exec app php artisan queue:listen --queue=pending-transactions
 ```
 
 Now it's running on http://localhost:8080.

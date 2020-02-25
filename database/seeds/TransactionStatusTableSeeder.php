@@ -20,5 +20,10 @@ class TransactionStatusTableSeeder extends Seeder
             'id' => 2,
             'name' => 'Transferido',
         ]);
+
+        DB::table('transaction_status')->insert([
+            'id' => 3,
+            'name' => 'Falha na transferência',
+        ]);
     }
 }
