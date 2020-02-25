@@ -41,8 +41,6 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
-$app->register(Anik\Amqp\ServiceProviders\AmqpServiceProvider::class);
-
 /*
 |--------------------------------------------------------------------------
 | Return The Application
