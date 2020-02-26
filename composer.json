@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.0",
         "respect/validation": "^1.1",
+        "squizlabs/php_codesniffer": "^3.5",
         "vladimir-yuldashev/laravel-queue-rabbitmq": "^10.1"
     },
     "require-dev": {
@@ -63,6 +64,8 @@
             "@php artisan key:generate --ansi"
         ],
         "code:test": "./vendor/bin/phpunit",
-        "code:analyze": "./vendor/bin/phpstan analyse"
+        "code:analyze": "./vendor/bin/phpstan analyse",
+        "code:sniffer": "./vendor/bin/phpcs",
+        "code:sniffer:fix": "./vendor/bin/phpcbf"
     }
 }

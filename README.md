@@ -40,6 +40,16 @@ This application use [Larastan](https://github.com/nunomaduro/larastan) to run t
 docker-compose exec app composer code:analyze
 ```
 
+## Running the code sniffer
+
+This application use [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) to verify the PHP code standards.
+
+```
+docker-compose exec app composer code:sniffer
+```
+
+Run `code:sniffer:fix` to fix the errors automaticaly.
+
 ## Built With
 
 * [Laravel 6](https://laravel.com/) - PHP Framework

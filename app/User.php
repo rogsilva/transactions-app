@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public static function createWithWallet(array $data)
     {
-        return DB::transaction(function() use ($data) {
+        return DB::transaction(function () use ($data) {
             $user = User::create([
                 'person_type_id' => $data['person_type_id'],
                 'document' => str_replace(['.', '-', '/'], '', $data['document']),
