@@ -24,6 +24,22 @@ Now it's running on http://localhost:8080.
 
 You can use `user.teste@teste.com` and `password` to login with the test user.
 
+## Running the tests
+
+This application use [PHPUnit](https://github.com/sebastianbergmann/phpunit) to run the unit tests.
+
+```
+docker-compose exec app composer code:test
+```
+
+## Running the code analysis
+
+This application use [Larastan](https://github.com/nunomaduro/larastan) to run the code analysis.
+
+```
+docker-compose exec app composer code:analyze
+```
+
 ## Built With
 
 * [Laravel 6](https://laravel.com/) - PHP Framework
