@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Transaction;
 
 class HomeController extends Controller
 {
@@ -26,7 +27,12 @@ class HomeController extends Controller
     {
 
         $wallet = Auth::user()->wallet;
+        $transactions = Transaction::getLastTransactions($wallet->id);
+
         return view('home')
-            ->with(['wallet' => $wallet]);
+            ->with([
+                'wallet' => $wallet,
+                'transactions' => $transactions,
+            ]);
     }
 }

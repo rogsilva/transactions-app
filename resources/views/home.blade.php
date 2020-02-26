@@ -14,7 +14,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    Histórico de transferências
+                    Resumo de transferências
                 </div>
                 <div class="card-body">
                     @if (session('status'))
@@ -24,6 +24,29 @@
                     @endif
 
                     <a href="{{ route('transaction') }}" title="Transferir" class="btn btn-sm btn-primary">Nova transferência</a>
+                    <hr>
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                            <th>Data</th>
+                            <th>Valor</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+                            @if (empty($transactions))
+                                <tr>
+                                    <td colspan="3">Você não possui transferências.</td>
+                                </tr>
+                            @else
+                                @foreach ($transactions as $transaction)
+                                    <tr>
+                                        <td>{{ $transaction['created_at'] }}</td>
+                                        <td>{{ $transaction['value'] }}</td>
+                                        <td>{{ $transaction['status'] }}</td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
